@@ -1,0 +1,14 @@
+version: 2.1
+
+orbs:
+  rust: circleci/rust@1.6.0
+
+workflows:
+  build:
+    jobs:
+      - rust/lint-test-build:
+          release: true
+          clippy_arguments: '--locked -- -D warnings'
+          version: 1.66.1
+
+# TODO: Custom docker image
