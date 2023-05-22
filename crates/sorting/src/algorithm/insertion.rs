@@ -3,7 +3,7 @@ pub struct InsertionSort<'a, TContent>
 where
     TContent: PartialOrd,
 {
-    vector: &'a mut [TContent],
+    items: &'a mut [TContent],
 }
 
 impl<'a, TContent> InsertionSort<'a, TContent>
@@ -11,17 +11,17 @@ where
     TContent: PartialOrd,
 {
     pub fn new(input: &'a mut [TContent]) -> Self {
-        Self { vector: input }
+        Self { items: input }
     }
 
     pub fn sort(&mut self) {
-        if self.vector.len() < 2 {
+        if self.items.len() < 2 {
             return;
         }
-        for i in 1..self.vector.len() {
+        for i in 1..self.items.len() {
             let mut j = i;
-            while j > 0 && self.vector[j - 1] > self.vector[j] {
-                self.vector.swap(j - 1, j);
+            while j > 0 && self.items[j - 1] > self.items[j] {
+                self.items.swap(j - 1, j);
                 j -= 1;
             }
         }
