@@ -1,5 +1,7 @@
 //! Houses the sorting algorithms used by the program
 
+use self::{insertion::InsertionSort, merge::MergeSort, selection::SelectionSort};
+
 mod insertion;
 mod merge;
 mod selection;
@@ -14,12 +16,15 @@ pub enum SortingAlgorithm {
 
 impl SortingAlgorithm {
     /// Runs the specified [`SortingAlgorithm`]
-    pub fn run<TContent>(&self, _vector: &mut Vec<TContent>) {
+    pub fn run<TContent>(&self, vector: &mut [TContent])
+    where
+        TContent: PartialOrd,
+    {
         match self {
-            SortingAlgorithm::Selection => todo!(),
-            SortingAlgorithm::Insertion => todo!(),
-            SortingAlgorithm::Merge => todo!(),
-        }
+            SortingAlgorithm::Selection => SelectionSort::<TContent>::new(vector).sort(),
+            SortingAlgorithm::Insertion => InsertionSort::<TContent>::new(vector).sort(),
+            SortingAlgorithm::Merge => MergeSort::<TContent>::new(vector).sort(),
+        };
     }
 }
 
@@ -36,11 +41,17 @@ impl TryFrom<&'static str> for SortingAlgorithm {
     }
 }
 
-pub trait Sorting<TContent> {
+pub trait Sorting<TContent>
+where
+    TContent: PartialOrd,
+{
     fn sorty(&mut self, algorithm: SortingAlgorithm);
 }
 
-impl<TContent> Sorting<TContent> for Vec<TContent> {
+impl<TContent> Sorting<TContent> for [TContent]
+where
+    TContent: PartialOrd,
+{
     fn sorty(&mut self, algorithm: SortingAlgorithm) {
         algorithm.run(self);
     }
@@ -48,7 +59,7 @@ impl<TContent> Sorting<TContent> for Vec<TContent> {
 
 #[cfg(test)]
 mod test {
-    use crate::algorithm::{Sorting, SortingAlgorithm};
+    use super::*;
 
     #[test]
     fn from_str() {
@@ -56,14 +67,20 @@ mod test {
             SortingAlgorithm::try_from("selection").unwrap(),
             SortingAlgorithm::Selection
         );
-        // TODO
+        assert_eq!(
+            SortingAlgorithm::try_from("insertion").unwrap(),
+            SortingAlgorithm::Insertion
+        );
+        assert_eq!(
+            SortingAlgorithm::try_from("merge").unwrap(),
+            SortingAlgorithm::Merge
+        )
     }
 
     #[test]
     fn sorty() {
-        let original_vector = vec![10, 2, 30, 40, 80];
-        let mut sorted_vector = original_vector.to_owned();
-        sorted_vector.sorty(SortingAlgorithm::Insertion);
-        assert_eq!(sorted_vector, vec![2, 10, 30, 40, 80]);
+        let mut list = vec![10, 2, 30, 40, 80];
+        list.sorty(SortingAlgorithm::Insertion);
+        assert_eq!(list, vec![2, 10, 30, 40, 80]);
     }
 }
