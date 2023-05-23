@@ -3,16 +3,18 @@ pub struct MergeSort<'a, TContent>
 where
     TContent: PartialOrd,
 {
-    items: &'a [TContent],
+    items: &'a mut [TContent],
 }
 
 impl<'a, TContent: PartialOrd> MergeSort<'a, TContent>
 where
     TContent: PartialOrd,
 {
-    pub fn new(input: &'a [TContent]) -> Self {
+    pub fn new(input: &'a mut [TContent]) -> Self {
         Self { items: input }
     }
 
-    pub fn sort(&mut self) {}
+    pub fn sort(&mut self) {
+        todo!()
+    }
 }
