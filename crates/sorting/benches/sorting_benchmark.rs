@@ -32,7 +32,8 @@ macro_rules! create_bench {
 
 fn sorting_bechmark(c: &mut Criterion) {
     let sizes = vec![
-        50, 100, 500, 1_000, 2_000, 5_000, 10_000, 20_000, 50_000, 70_000, 100_000, 1_000_000,
+        50, 100, 500, 1_000, 2_000, 5_000, 10_000, 20_000, 50_000, 70_000, 100_000, 500_000,
+        1_000_000,
     ];
 
     let mut sorting_group = c.benchmark_group("sorting_bechmark");
