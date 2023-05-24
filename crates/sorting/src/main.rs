@@ -1,7 +1,7 @@
 use color_eyre::eyre::Result;
 
 mod cli;
-mod algorithm;
+pub mod algorithm;
 
 fn main() -> Result<()> {
     color_eyre::install()?;

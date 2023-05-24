@@ -1,10 +1,11 @@
 //! Houses the sorting algorithms used by the program
+use std::fmt::Debug;
 
-use self::{insertion::InsertionSort, merge::MergeSort, selection::SelectionSort};
+use self::{insertion::InsertionSort, merge::{MergeSort, Merge}, selection::SelectionSort};
 
-mod insertion;
-mod merge;
-mod selection;
+pub mod insertion;
+pub mod merge;
+pub mod selection;
 
 /// Sorting Algorithms
 #[derive(Debug, PartialEq)]
@@ -16,14 +17,14 @@ pub enum SortingAlgorithm {
 
 impl SortingAlgorithm {
     /// Runs the specified [`SortingAlgorithm`]
-    pub fn run<TContent>(&self, vector: &mut [TContent])
+    pub fn sort_mut<TContent>(&self, vector: &mut [TContent])
     where
-        TContent: PartialOrd,
+        TContent: Ord + Copy + Clone + Debug,
     {
         match self {
             SortingAlgorithm::Selection => SelectionSort::<TContent>::new(vector).sort(),
             SortingAlgorithm::Insertion => InsertionSort::<TContent>::new(vector).sort(),
-            SortingAlgorithm::Merge => MergeSort::<TContent>::new(vector).sort(),
+            SortingAlgorithm::Merge => vector.mergesort_mut(Merge::merge_mut),
         };
     }
 }
@@ -43,17 +44,17 @@ impl TryFrom<&'static str> for SortingAlgorithm {
 
 pub trait Sorting<TContent>
 where
-    TContent: PartialOrd,
+    TContent: Ord + Copy + Clone + Debug,
 {
     fn sorty(&mut self, algorithm: SortingAlgorithm);
 }
 
 impl<TContent> Sorting<TContent> for [TContent]
 where
-    TContent: PartialOrd,
+    TContent: Ord + Copy + Clone + Debug,
 {
     fn sorty(&mut self, algorithm: SortingAlgorithm) {
-        algorithm.run(self);
+        algorithm.sort_mut(self);
     }
 }
 

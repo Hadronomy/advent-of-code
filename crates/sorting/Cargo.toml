@@ -6,6 +6,10 @@ edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
+[[bench]]
+name = "sorting_benchmark"
+harness = false
+
 [dependencies]
 clap = { version = "4.2.7", features = [
     "derive",
@@ -25,7 +29,9 @@ dialoguer = { version = "0.10.3", features = [
 ] }
 eyre = "0.6.8"
 owo-colors = "3.5.0"
+rand = "0.8.5"
 thiserror = "1.0.38"
 
 [dev-dependencies]
+criterion = { version = "0.5.0", features = ["html_reports"] }
 rusty-hook = "0.11.2"
