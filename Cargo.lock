@@ -1157,6 +1157,7 @@ dependencies = [
  "criterion",
  "dialoguer",
  "eyre",
+ "heck",
  "owo-colors",
  "rand",
  "rusty-hook",
