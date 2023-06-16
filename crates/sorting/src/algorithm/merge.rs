@@ -5,6 +5,42 @@
 
 use std::fmt::Debug;
 
+/// Simple MergeSort implementation
+pub trait MergeSort<TContent>
+where
+    TContent: Ord,
+{
+    fn mergesort_mut<FMerge>(&mut self, fn_merge: FMerge)
+    where
+        FMerge: Copy + FnMut(&mut [TContent], &mut [TContent]);
+}
+
+impl<TContent> MergeSort<TContent> for [TContent]
+where
+    TContent: Ord + Copy + Clone + Debug,
+{
+    fn mergesort_mut<FMerge>(&mut self, mut fn_merge: FMerge)
+    where
+        FMerge: Copy + FnMut(&mut [TContent], &mut [TContent]),
+    {
+        let len = self.len();
+        match len {
+            0..=1 => (),
+            2 => {
+                if self[0] > self[1] {
+                    self.swap(0, 1);
+                }
+            }
+            _ => {
+                let (left, right) = self.split_at_mut(len >> 1);
+                left.mergesort_mut(fn_merge);
+                right.mergesort_mut(fn_merge);
+                fn_merge(left, right);
+            }
+        }
+    }
+}
+
 pub trait Merge<TContent>
 where
     TContent: Ord + Debug,
@@ -42,42 +78,6 @@ where
         self.copy_from_slice(&temp[0..self.len()]);
         for temp_index in self.len()..temp.len() {
             right[temp_index - self.len()] = temp[temp_index];
-        }
-    }
-}
-
-/// Simple MergeSort implementation
-pub trait MergeSort<TContent>
-where
-    TContent: Ord,
-{
-    fn mergesort_mut<FMerge>(&mut self, fn_merge: FMerge)
-    where
-        FMerge: Copy + FnMut(&mut [TContent], &mut [TContent]);
-}
-
-impl<TContent> MergeSort<TContent> for [TContent]
-where
-    TContent: Ord + Copy + Clone + Debug,
-{
-    fn mergesort_mut<FMerge>(&mut self, mut fn_merge: FMerge)
-    where
-        FMerge: Copy + FnMut(&mut [TContent], &mut [TContent]),
-    {
-        let len = self.len();
-        match len {
-            0..=1 => (),
-            2 => {
-                if self[0] > self[1] {
-                    self.swap(0, 1);
-                }
-            }
-            _ => {
-                let (left, right) = self.split_at_mut(len >> 1);
-                left.mergesort_mut(fn_merge);
-                right.mergesort_mut(fn_merge);
-                fn_merge(left, right);
-            }
         }
     }
 }

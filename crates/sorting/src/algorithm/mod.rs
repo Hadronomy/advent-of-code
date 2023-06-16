@@ -1,10 +1,16 @@
 //! Houses the sorting algorithms used by the program
 use std::fmt::Debug;
 
-use self::{insertion::InsertionSort, merge::{MergeSort, Merge}, selection::SelectionSort};
+use self::{
+    insertion::InsertionSort,
+    merge::{Merge, MergeSort},
+    quick::QuickSort,
+    selection::SelectionSort,
+};
 
 pub mod insertion;
 pub mod merge;
+pub mod quick;
 pub mod selection;
 
 /// Sorting Algorithms
@@ -13,6 +19,7 @@ pub enum SortingAlgorithm {
     Selection,
     Insertion,
     Merge,
+    Quick,
 }
 
 impl SortingAlgorithm {
@@ -25,6 +32,7 @@ impl SortingAlgorithm {
             SortingAlgorithm::Selection => SelectionSort::<TContent>::new(vector).sort(),
             SortingAlgorithm::Insertion => InsertionSort::<TContent>::new(vector).sort(),
             SortingAlgorithm::Merge => vector.mergesort_mut(Merge::merge_mut),
+            SortingAlgorithm::Quick => vector.quicksort_mut(),
         };
     }
 }
@@ -37,6 +45,7 @@ impl TryFrom<&'static str> for SortingAlgorithm {
             "selection" => Ok(SortingAlgorithm::Selection),
             "insertion" => Ok(SortingAlgorithm::Insertion),
             "merge" => Ok(SortingAlgorithm::Merge),
+            "quick" => Ok(SortingAlgorithm::Quick),
             _ => Err("Invalid input"),
         }
     }
