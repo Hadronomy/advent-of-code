@@ -15,7 +15,7 @@ where
 {
     fn quicksort_mut(&mut self) {
         if self.len() > 1 {
-            let pivot = self.lomuto_partition();
+            let pivot = self.hoare_partition();
             let (left, right) = self.split_at_mut_exclusive(pivot);
             left.quicksort_mut();
             right.quicksort_mut();
@@ -49,6 +49,39 @@ where
             self.swap(swap, pivot);
         }
         swap
+    }
+}
+
+pub trait HoarePartition<TContent>
+where
+    TContent: Ord + Debug,
+{
+    fn hoare_partition(&mut self) -> usize;
+}
+
+impl<TContent> HoarePartition<TContent> for [TContent]
+where
+    TContent: Ord + Copy + Debug,
+{
+    fn hoare_partition(&mut self) -> usize {
+        let mut i = 0;
+        let mut j = self.len() - 1;
+        let pivot = self[(i + j) / 2];
+        while i <= self.len() {
+            while self[i] < pivot {
+                i += 1;
+            }
+            while self[j] > pivot {
+                j -= 1;
+            }
+            if i >= j {
+                return j;
+            }
+            self.swap(i, j);
+            i += 1;
+            j -= 1;
+        }
+        j
     }
 }
 
