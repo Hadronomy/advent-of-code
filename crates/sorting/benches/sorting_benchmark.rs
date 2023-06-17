@@ -44,7 +44,9 @@ fn sorting_bechmark(c: &mut Criterion) {
         Insertion,
         Merge,
         Quick,
-        Heap
+        Heap,
+        // Radix
+        Shell
     );
 }
 

@@ -7,13 +7,16 @@ use self::{
     merge::{Merge, MergeSort},
     quick::QuickSort,
     selection::SelectionSort,
+    shell::ShellSort,
 };
 
 pub mod heap;
 pub mod insertion;
 pub mod merge;
 pub mod quick;
+pub mod radix;
 pub mod selection;
+pub mod shell;
 
 /// Sorting Algorithms
 #[derive(Debug, PartialEq)]
@@ -23,6 +26,8 @@ pub enum SortingAlgorithm {
     Merge,
     Quick,
     Heap,
+    // Radix,
+    Shell,
 }
 
 impl SortingAlgorithm {
@@ -37,6 +42,8 @@ impl SortingAlgorithm {
             SortingAlgorithm::Merge => vector.mergesort_mut(Merge::merge_mut),
             SortingAlgorithm::Quick => vector.quicksort_mut(),
             SortingAlgorithm::Heap => vector.heap_sort_mut(),
+            // SortingAlgorithm::Radix => vector.radix_sort_mut(),
+            SortingAlgorithm::Shell => vector.shell_sort_mut(),
         };
     }
 }
@@ -51,6 +58,8 @@ impl TryFrom<&'static str> for SortingAlgorithm {
             "merge" => Ok(SortingAlgorithm::Merge),
             "quick" => Ok(SortingAlgorithm::Quick),
             "heap" => Ok(SortingAlgorithm::Heap),
+            // "radix" => Ok(SortingAlgorithm::Radix),
+            "shell" => Ok(SortingAlgorithm::Shell),
             _ => Err("Invalid input"),
         }
     }

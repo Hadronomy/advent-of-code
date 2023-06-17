@@ -1,3 +1,4 @@
+// TODO: Refactor to traits
 #[derive(Debug)]
 pub struct InsertionSort<'a, TContent>
 where

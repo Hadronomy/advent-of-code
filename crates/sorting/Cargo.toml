@@ -28,6 +28,7 @@ dialoguer = { version = "0.10.3", features = [
     "fuzzy-matcher",
 ] }
 eyre = "0.6.8"
+num-traits = "0.2.15"
 owo-colors = "3.5.0"
 rand = "0.8.5"
 thiserror = "1.0.38"
