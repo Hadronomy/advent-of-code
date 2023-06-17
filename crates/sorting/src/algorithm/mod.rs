@@ -2,12 +2,14 @@
 use std::fmt::Debug;
 
 use self::{
+    heap::HeapSort,
     insertion::InsertionSort,
     merge::{Merge, MergeSort},
     quick::QuickSort,
     selection::SelectionSort,
 };
 
+pub mod heap;
 pub mod insertion;
 pub mod merge;
 pub mod quick;
@@ -20,6 +22,7 @@ pub enum SortingAlgorithm {
     Insertion,
     Merge,
     Quick,
+    Heap,
 }
 
 impl SortingAlgorithm {
@@ -33,6 +36,7 @@ impl SortingAlgorithm {
             SortingAlgorithm::Insertion => InsertionSort::<TContent>::new(vector).sort(),
             SortingAlgorithm::Merge => vector.mergesort_mut(Merge::merge_mut),
             SortingAlgorithm::Quick => vector.quicksort_mut(),
+            SortingAlgorithm::Heap => vector.heap_sort_mut(),
         };
     }
 }
@@ -46,6 +50,7 @@ impl TryFrom<&'static str> for SortingAlgorithm {
             "insertion" => Ok(SortingAlgorithm::Insertion),
             "merge" => Ok(SortingAlgorithm::Merge),
             "quick" => Ok(SortingAlgorithm::Quick),
+            "heap" => Ok(SortingAlgorithm::Heap),
             _ => Err("Invalid input"),
         }
     }

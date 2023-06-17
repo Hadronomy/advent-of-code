@@ -37,7 +37,15 @@ fn sorting_bechmark(c: &mut Criterion) {
     ];
 
     let mut sorting_group = c.benchmark_group("sorting_bechmark");
-    create_bench!(sorting_group, sizes, Selection, Insertion, Merge, Quick);
+    create_bench!(
+        sorting_group,
+        sizes,
+        Selection,
+        Insertion,
+        Merge,
+        Quick,
+        Heap
+    );
 }
 
 criterion_group!(benches, sorting_bechmark);
