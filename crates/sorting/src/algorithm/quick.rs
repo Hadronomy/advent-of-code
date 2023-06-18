@@ -1,7 +1,5 @@
 use std::fmt::Debug;
 
-use crate::utils::Split;
-
 pub trait QuickSort<TContent>
 where
     TContent: Ord + Debug,
@@ -13,12 +11,17 @@ impl<TContent> QuickSort<TContent> for [TContent]
 where
     TContent: Ord + Copy + Debug,
 {
+    //! TODO: Fix this
     fn quicksort_mut(&mut self) {
         if self.len() > 1 {
             let pivot = self.hoare_partition();
-            let (left, right) = self.split_at_mut_exclusive(pivot);
-            left.quicksort_mut();
-            right.quicksort_mut();
+            if 0 < pivot.1 {
+                self[0..=pivot.1].quicksort_mut();
+            }
+            let end = self.len() - 1;
+            if pivot.0 < end {
+                self[pivot.0..=end].quicksort_mut();
+            }
         }
     }
 }
@@ -56,32 +59,31 @@ pub trait HoarePartition<TContent>
 where
     TContent: Ord + Debug,
 {
-    fn hoare_partition(&mut self) -> usize;
+    fn hoare_partition(&mut self) -> (usize, usize);
 }
 
 impl<TContent> HoarePartition<TContent> for [TContent]
 where
     TContent: Ord + Copy + Debug,
 {
-    fn hoare_partition(&mut self) -> usize {
+    fn hoare_partition(&mut self) -> (usize, usize) {
         let mut i = 0;
         let mut j = self.len() - 1;
         let pivot = self[(i + j) / 2];
-        while i <= self.len() {
+        while i <= j {
             while self[i] < pivot {
                 i += 1;
             }
             while self[j] > pivot {
                 j -= 1;
             }
-            if i >= j {
-                return j;
+            if i <= j {
+                self.swap(i, j);
+                i += 1;
+                j -= 1;
             }
-            self.swap(i, j);
-            i += 1;
-            j -= 1;
         }
-        j
+        (i, j)
     }
 }
 
@@ -91,9 +93,9 @@ mod test {
 
     #[test]
     fn sort() {
-        let list = vec![10, 1, 8, 4, 5, 3, 9, 1, 8];
+        let list = vec![-1, -67, 45, 128, 27, -81, 239, 343, 99];
         let mut sorted = list.to_owned();
         sorted.quicksort_mut();
-        assert_eq!(sorted, vec![1, 1, 3, 4, 5, 8, 8, 9, 10]);
+        assert_eq!(sorted, vec![-81, -67, -1, 27, 45, 99, 128, 239, 343]);
     }
 }

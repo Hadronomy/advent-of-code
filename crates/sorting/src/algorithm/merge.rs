@@ -58,6 +58,7 @@ where
         let mut temp = Vec::<TContent>::new();
 
         loop {
+            // TODO: May be able to simplify
             match (i < self.len(), j < right.len()) {
                 (true, false) => {
                     temp.push(self[i]);
@@ -88,9 +89,9 @@ mod test {
 
     #[test]
     fn sort() {
-        let list = vec![10, 1, 8, 4, 5, 3, 9, 1, 8];
+        let list = vec![-1, -67, 45, 128, 27, -81, 239, 343, 99];
         let mut sorted = list.to_owned();
         sorted.mergesort_mut(Merge::merge_mut);
-        assert_eq!(sorted, vec![1, 1, 3, 4, 5, 8, 8, 9, 10]);
+        assert_eq!(sorted, vec![-81, -67, -1, 27, 45, 99, 128, 239, 343]);
     }
 }
