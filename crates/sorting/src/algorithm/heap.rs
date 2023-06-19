@@ -22,7 +22,6 @@ where
         if right < heap_len && self[right] > self[largest] {
             largest = right;
         }
-
         if largest != i {
             self.swap(i, largest);
             self.heap_max(largest, heap_len);
