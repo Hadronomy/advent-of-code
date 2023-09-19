@@ -23,14 +23,15 @@ use crate::parser::*;
 #[instrument]
 async fn handle_data(socket: (TcpStream, SocketAddr), path: PathBuf) -> Result<()> {
     let (mut stream, addr) = socket;
+    let (mut read_stream, mut _write_stream) = stream.split();
     info!("New data connection from {}", addr);
     let mut buf: Vec<u8> = vec![];
-    let _ = stream.read_to_end(&mut buf).await.into_diagnostic()?;
+    let _ = read_stream.read_to_end(&mut buf).await.into_diagnostic()?;
     let content = str::from_utf8(&buf);
     let mut file = File::create(path.join("tortilla.txt"))
         .await
         .into_diagnostic()?;
-    file.write_all(&buf).await.into_diagnostic()?;
+    file.write(&buf).await.into_diagnostic()?;
     debug!(?content);
     Ok(())
 }
@@ -63,7 +64,7 @@ async fn handle_client(socket: (TcpStream, SocketAddr)) -> Result<()> {
     // let mut writer = BufWriter::new(&mut write_stream);
     info!("New client connection from {}", addr);
     // ftp authorization logic goes here
-    write_stream.write_all(b"220\n").await.into_diagnostic()?;
+    write_stream.write(b"220\n").await.into_diagnostic()?;
     let mut buf = vec![];
     loop {
         let _ = reader.read_until(b'\n', &mut buf).await.into_diagnostic()?;
@@ -74,14 +75,14 @@ async fn handle_client(socket: (TcpStream, SocketAddr)) -> Result<()> {
         match cmd {
             "USER" => {
                 // Return OK Authorized for now
-                write_stream.write_all(b"200\n").await.into_diagnostic()?;
+                write_stream.write(b"200\n").await.into_diagnostic()?;
             }
             "SYST" => {
-                write_stream.write_all(b"200\n").await.into_diagnostic()?;
+                write_stream.write(b"200\n").await.into_diagnostic()?;
             }
             "PORT" => {
                 write_stream
-                    .write_all(StatusCode::CmdNotImplemented.to_string().as_bytes())
+                    .write(StatusCode::CmdNotImplemented.to_string().as_bytes())
                     .await
                     .into_diagnostic()?;
             }
@@ -93,7 +94,7 @@ async fn handle_client(socket: (TcpStream, SocketAddr)) -> Result<()> {
                     .await
                     .unwrap_or_else(|_| panic!("Could not bind to address {}", data_addr));
                 write_stream
-                    .write_all(
+                    .write(
                         StatusCode::EnteringPassiveMode {
                             port_high,
                             port_low,
@@ -112,13 +113,13 @@ async fn handle_client(socket: (TcpStream, SocketAddr)) -> Result<()> {
             }
             "STOR" => {
                 write_stream
-                    .write_all(StatusCode::DataOpenTransfer.to_string().as_bytes())
+                    .write(StatusCode::DataOpenTransfer.to_string().as_bytes())
                     .await
                     .into_diagnostic()?;
             }
             "LPRT" => {
                 write_stream
-                    .write_all(StatusCode::CmdNotImplemented.to_string().as_bytes())
+                    .write(StatusCode::CmdNotImplemented.to_string().as_bytes())
                     .await
                     .into_diagnostic()?;
             }
@@ -133,39 +134,39 @@ async fn handle_client(socket: (TcpStream, SocketAddr)) -> Result<()> {
             }
             "TYPE" => {
                 write_stream
-                    .write_all(StatusCode::CmdNotImplemented.to_string().as_bytes())
+                    .write(StatusCode::CmdNotImplemented.to_string().as_bytes())
                     .await
                     .into_diagnostic()?;
             }
             "MODE" => {
                 write_stream
-                    .write_all(StatusCode::CmdNotImplemented.to_string().as_bytes())
+                    .write(StatusCode::CmdNotImplemented.to_string().as_bytes())
                     .await
                     .into_diagnostic()?;
             }
             "STRU" => {
                 write_stream
-                    .write_all(StatusCode::CmdNotImplemented.to_string().as_bytes())
+                    .write(StatusCode::CmdNotImplemented.to_string().as_bytes())
                     .await
                     .into_diagnostic()?;
             }
             "CWD" => {
                 cwd = cwd.join(args[0]);
                 write_stream
-                    .write_all(StatusCode::FileActionOk.to_string().as_bytes())
+                    .write(StatusCode::FileActionOk.to_string().as_bytes())
                     .await
                     .into_diagnostic()?;
             }
             "PWD" => {
                 write_stream
-                    .write_all(StatusCode::CmdNotImplemented.to_string().as_bytes())
+                    .write(StatusCode::CmdNotImplemented.to_string().as_bytes())
                     .await
                     .into_diagnostic()?;
             }
             // this command is a synonym for CWD
             "CDUP" => {
                 write_stream
-                    .write_all(StatusCode::CmdNotImplemented.to_string().as_bytes())
+                    .write(StatusCode::CmdNotImplemented.to_string().as_bytes())
                     .await
                     .into_diagnostic()?;
             }
