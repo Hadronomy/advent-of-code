@@ -282,15 +282,15 @@ pub enum CommandError {
 /// The FTP commands
 ///
 /// See [RFC 959](https://tools.ietf.org/html/rfc959)
-pub enum Command {
+pub enum Command<'a> {
     /// **USER** - Specify user for authentication
-    User(String),
+    User(&'a str),
 
     /// **PASS** - Specify password for authentication
-    Pass(String),
+    Pass(&'a str),
 
     /// **CWD** - Change working directory
-    Cwd(String),
+    Cwd(&'a str),
 
     /// **CDUP** - Change to parent directory
     Cdup,
@@ -356,33 +356,33 @@ pub enum Command {
     Unknown,
 }
 
-impl Command {
+impl<'a> Command<'a> {
     pub fn run(&self) -> Result<StatusCode, CommandError> {
         match self {
-            Command::User(_) => Ok(StatusCode::Ok),
-            Command::Pass(_) => Ok(StatusCode::Ok),
-            Command::Cwd(_) => Ok(StatusCode::Ok),
-            Command::Cdup => Ok(StatusCode::Ok),
-            Command::Quit => Ok(StatusCode::Ok),
-            Command::Port => Ok(StatusCode::Ok),
-            Command::Pasv => Ok(StatusCode::Ok),
-            Command::Type => Ok(StatusCode::Ok),
-            Command::Mode => Ok(StatusCode::Ok),
-            Command::Stru => Ok(StatusCode::Ok),
-            Command::Retr => Ok(StatusCode::Ok),
-            Command::Stor => Ok(StatusCode::Ok),
-            Command::Noop => Ok(StatusCode::Ok),
-            Command::Syst => Ok(StatusCode::Ok),
-            Command::Stat => Ok(StatusCode::Ok),
-            Command::Help => Ok(StatusCode::Ok),
-            Command::Dele => Ok(StatusCode::Ok),
-            Command::Rmd => Ok(StatusCode::Ok),
-            Command::Mkd => Ok(StatusCode::Ok),
-            Command::Pwd => Ok(StatusCode::Ok),
-            Command::List => Ok(StatusCode::Ok),
-            Command::Nlst => Ok(StatusCode::Ok),
-            Command::Site => Ok(StatusCode::Ok),
-            Command::Unknown => Err(CommandError::InvalidArguments),
+            Command::User(_) => todo!(),
+            Command::Pass(_) => todo!(),
+            Command::Cwd(_) => todo!(),
+            Command::Cdup => todo!(),
+            Command::Quit => todo!(),
+            Command::Port => todo!(),
+            Command::Pasv => todo!(),
+            Command::Type => todo!(),
+            Command::Mode => todo!(),
+            Command::Stru => todo!(),
+            Command::Retr => todo!(),
+            Command::Stor => todo!(),
+            Command::Noop => todo!(),
+            Command::Syst => todo!(),
+            Command::Stat => todo!(),
+            Command::Help => todo!(),
+            Command::Dele => todo!(),
+            Command::Rmd => todo!(),
+            Command::Mkd => todo!(),
+            Command::Pwd => todo!(),
+            Command::List => todo!(),
+            Command::Nlst => todo!(),
+            Command::Site => todo!(),
+            Command::Unknown => todo!(),
         }
     }
 }
