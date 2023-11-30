@@ -1,0 +1,5 @@
+[package]
+name = "day-1"
+authors = ["Pablo Hernandez (@Hadronomy)"]
+version = "0.1.0"
+edition = "2021"

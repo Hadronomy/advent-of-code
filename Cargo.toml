@@ -1,6 +1,6 @@
 [workspace]
 resolver = "2"
-members = ["experiments/*"]
+members = ["experiments/*", "day-*"]
 
 # Config for 'cargo dist'
 [workspace.metadata.dist]
