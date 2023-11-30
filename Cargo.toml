@@ -1,6 +1,6 @@
 [workspace]
 resolver = "2"
-members = ["crates/*"]
+members = ["experiments/*"]
 
 # Config for 'cargo dist'
 [workspace.metadata.dist]
