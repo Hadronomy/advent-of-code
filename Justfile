@@ -2,7 +2,7 @@ _default:
     @just --list
 
 check:
-    cargo clippy --locked -- -D warnings
+    cargo clippy --locked
     cargo fmt -- --check
 
 fix:

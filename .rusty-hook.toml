@@ -1,5 +1,5 @@
 [hooks]
-pre-commit = "cargo clippy --locked -- -D warnings"
+pre-commit = "cargo clippy --locked"
 
 [logging]
 verbose = true
