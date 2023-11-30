@@ -25,7 +25,7 @@ mod test {
 
     #[test]
     fn split_at_mut_exclusive() {
-        let mut list = vec![1, 2, 3, 4, 5, 6, 7];
+        let mut list = [1, 2, 3, 4, 5, 6, 7];
         let mid = 3;
         let (left, right) = list.split_at_mut_exclusive(mid);
         assert_eq!(left, vec![1, 2, 3]);
