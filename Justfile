@@ -8,5 +8,8 @@ check:
 fix:
     cargo clippy --fix --locked -- -D warnings
 
-test:
-    cargo test --locked
+test day:
+    cargo nextest run --locked -p {{day}}
+
+create day:
+    cargo generate --path ./daily-template --name {{day}}
