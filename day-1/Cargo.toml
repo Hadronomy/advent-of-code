@@ -3,3 +3,7 @@ name = "day-1"
 authors = ["Pablo Hernandez (@Hadronomy)"]
 version = "0.1.0"
 edition = "2021"
+
+[dependencies]
+miette = { version = "5.10.0", features = ["fancy"] }
+tracing = "0.1.40"

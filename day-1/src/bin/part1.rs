@@ -1,13 +1,7 @@
+use day_1::part1;
 
 fn main() {
-    println!("Hello, world! Part 1");
-}
-
-#[cfg(test)]
-mod tests {
-
-    #[test]
-    fn it_works() {
-        assert_eq!(2 + 2, 4);
-    }
+    let input = include_str!("input.txt");
+    let result = part1::process(input);
+    println!("Result: {}", result.expect("should have a result"));
 }
