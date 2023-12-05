@@ -1,4 +1,4 @@
-use std::collections::{HashMap};
+use std::collections::HashMap;
 
 use glam::IVec2;
 use itertools::Itertools;
