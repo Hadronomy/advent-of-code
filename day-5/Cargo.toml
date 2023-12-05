@@ -1,0 +1,15 @@
+[package]
+name = "day-5"
+authors = ["Pablo Hernandez (@Hadronomy)"]
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+itertools = { workspace = true }
+miette = { workspace = true, features = ["fancy"] }
+nom = { workspace = true }
+nom-supreme = "0.8.0"
+rstest = { workspace = true }
+tracing = { workspace = true }
+rayon = { workspace = true }
+indicatif = { workspace = true }
