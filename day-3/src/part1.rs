@@ -46,7 +46,7 @@ fn parse_grid(input: Span) -> IResult<Span, Vec<Value>> {
 
 #[tracing::instrument]
 pub fn process(input: &str) -> miette::Result<u32> {
-    let grid = dbg!(parse_grid(Span::new(input)).unwrap().1);
+    let grid = parse_grid(Span::new(input)).unwrap().1;
     let symbol_set = grid
         .iter()
         .filter_map(|value| match value {
