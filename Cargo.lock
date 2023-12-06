@@ -521,6 +521,20 @@ dependencies = [
 ]
 
 [[package]]
+name = "day-6"
+version = "0.1.0"
+dependencies = [
+ "indicatif",
+ "itertools 0.12.0",
+ "miette",
+ "nom",
+ "nom-supreme",
+ "rayon",
+ "rstest",
+ "tracing",
+]
+
+[[package]]
 name = "dialoguer"
 version = "0.10.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
