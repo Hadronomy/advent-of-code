@@ -466,7 +466,7 @@ name = "day-1"
 version = "0.1.0"
 dependencies = [
  "itertools 0.12.0",
- "miette",
+ "miette 5.10.0",
  "rstest",
  "tracing",
 ]
@@ -476,7 +476,7 @@ name = "day-2"
 version = "0.1.0"
 dependencies = [
  "itertools 0.12.0",
- "miette",
+ "miette 5.10.0",
  "nom",
  "rstest",
  "tracing",
@@ -488,7 +488,7 @@ version = "0.1.0"
 dependencies = [
  "glam",
  "itertools 0.12.0",
- "miette",
+ "miette 5.10.0",
  "nom",
  "nom_locate",
  "rstest",
@@ -500,7 +500,7 @@ name = "day-4"
 version = "0.1.0"
 dependencies = [
  "itertools 0.12.0",
- "miette",
+ "miette 5.10.0",
  "nom",
  "rstest",
  "tracing",
@@ -512,7 +512,7 @@ version = "0.1.0"
 dependencies = [
  "indicatif",
  "itertools 0.12.0",
- "miette",
+ "miette 5.10.0",
  "nom",
  "nom-supreme",
  "rayon",
@@ -526,7 +526,7 @@ version = "0.1.0"
 dependencies = [
  "indicatif",
  "itertools 0.12.0",
- "miette",
+ "miette 5.10.0",
  "nom",
  "nom-supreme",
  "rayon",
@@ -638,7 +638,7 @@ dependencies = [
  "color-eyre",
  "eyre",
  "libc",
- "miette",
+ "miette 5.10.0",
  "nom",
  "nom-supreme",
  "num-derive",
@@ -1027,6 +1027,13 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "d61c719bcfbcf5d62b3a09efa6088de8c54bc0bfcd3ea7ae39fcc186108b8de1"
 dependencies = [
  "autocfg",
+]
+
+[[package]]
+name = "miette"
+version = "0.1.0"
+dependencies = [
+ "miette 5.10.0",
 ]
 
 [[package]]
