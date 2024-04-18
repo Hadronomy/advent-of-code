@@ -1,8 +1,8 @@
 <html>
   <h1 align=center>Advent Of Code</h1>
-  <div align=center>Advent of Code & Experiments</div>
+  <p align=center>Advent of Code & Experiments</p>
   <div align=center>  
-    <img title="el gato pc" alt="un gato en el pc" src=".github/silly-pc-cat.jpg">
+    <img title="The author of the repo" alt="there's a cat writing code" src=".github/silly-pc-cat.jpg">
   </div>
 </html>
 
