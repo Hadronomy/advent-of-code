@@ -26,7 +26,7 @@ fn main() -> Result<()> {
             )],
             "Cannot read from stdin and provide text at the same time."
         )
-        .with_source_code(format!("{} {}", "clip", cli.text.as_ref().unwrap())));
+        .with_source_code(format!("{} {}", "bootleg", cli.text.as_ref().unwrap())));
     }
     let mut buffer = String::new();
     stdin().read_to_string(&mut buffer).into_diagnostic()?;

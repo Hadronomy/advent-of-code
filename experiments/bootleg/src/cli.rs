@@ -5,7 +5,7 @@ use clap_help::Printer;
 use termimad::ansi;
 
 static INTRO: &str = r#"
-*clip* is a cli tool for copying to the clipboard
+*bootleg* is a cli tool for copying to the clipboard
 
 > **NOTE**: This is a work in progress and is missing some features.
 
@@ -27,7 +27,7 @@ ${example-cmd}
 ";
 
 #[derive(Parser, Debug)]
-#[command(name = "clip", author, version, about, disable_help_flag = true)]
+#[command(name = "bootleg", author, version, about, disable_help_flag = true)]
 pub struct Args {
     /// Print help
     #[arg(short, long)]
