@@ -1,0 +1,3 @@
+[submodule "experiments/bootleg"]
+	path = experiments/bootleg
+	url = git@github.com:Hadronomy/bootleg.git
