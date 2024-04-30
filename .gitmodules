@@ -1,3 +1,6 @@
 [submodule "experiments/bootleg"]
 	path = experiments/bootleg
 	url = git@github.com:Hadronomy/bootleg.git
+[submodule "experiments/ftp-server"]
+	path = experiments/ftp-server
+	url = git@github.com:Hadronomy/ftp-server.git
